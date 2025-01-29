@@ -11,7 +11,6 @@ public class Player : MonoBehaviour
     [Header("Player Attributes")]
     public float moveSpeed;
     public float touchmoveSpeed;
-    private Vector2 lastTouchPosition;
 
     private void Awake()
     {
@@ -55,16 +54,13 @@ public class Player : MonoBehaviour
 
     public void TouchMovePlayer()
     {
-        if (Input.touchCount > 0) // Check if screen is touched
+        if (Input.touchCount > 0)
         {
-            Touch touch = Input.GetTouch(0); // Get first touch
-
-            // Convert touch position to world space
+            Touch touch = Input.GetTouch(0); 
             Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
-            touchPosition.x = transform.position.x; // Keep X position fixed
-            touchPosition.z = 0f; // Ensure no depth changes
+            touchPosition.x = transform.position.x; 
+            touchPosition.z = 0f; 
 
-            // Move paddle using Rigidbody2D (smooth movement)
             rb.MovePosition(Vector2.Lerp(transform.position, touchPosition, touchmoveSpeed * Time.deltaTime));
         }
     }
