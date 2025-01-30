@@ -7,7 +7,7 @@ public class Ball : MonoBehaviour
     [Header("Components")]
     private Rigidbody2D rb;
     public float ballSpeed;
-    
+    public float collisionForceMultiplier = 0.1f;
 
     private void Awake()
     {
@@ -15,16 +15,32 @@ public class Ball : MonoBehaviour
     }
     void Start()
     {
-        Begin();
+        GameManager.Instance.isBallMoving = false;
+        GameManager.Instance.ResetPositionAction = ResetPosition;
+        GameManager.Instance.StartGameAction = StartingForce;
     }
 
     void Update()
     {
-        
+        if(!GameManager.Instance.isBallMoving) 
+        {
+            rb.Sleep();
+        }
+        else 
+        {
+            rb.WakeUp();
+        }
     }
 
-    public void Begin()
+    public void ResetPosition() 
     {
+        transform.position = Vector3.zero;
+    }
+
+    public void StartingForce()
+    {
+        GameManager.Instance.isBallMoving = true;
+
         var bounceRight = Random.value > 0.5f;
         var xDir = bounceRight ? 1f : -1f;
         var yDir = Random.Range(-1f, 1f);
@@ -36,11 +52,20 @@ public class Ball : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            var hitpoint = (collision.contacts[0].point.y - collision.transform.position.y) / collision.transform.localScale.y; 
-            float angle = hitpoint > 0f ? Random.Range(27f, 45f): Random.Range(-45f, -27f);
+            SFXManager.Instance.PlaySound(SFXManager.Instance.collisionSound);
+            //var hitpoint = (collision.contacts[0].point.y - collision.transform.position.y) / collision.transform.localScale.y; 
+            //float angle = hitpoint > 0f ? Random.Range(0, 45f): Random.Range(-45f, 0);
+
+            float angle = Random.Range(-45f, 46f);
             float radians = angle * Mathf.Deg2Rad;
             Vector2 newDirection = new Vector2(Mathf.Cos(radians), Mathf.Sin(radians));
-            rb.AddForce(newDirection , ForceMode2D.Impulse);
+            rb.AddForce(newDirection);
         }
+
+        if (collision.gameObject.CompareTag("Bounds"))
+        {
+            
+        }
+
     }
 }

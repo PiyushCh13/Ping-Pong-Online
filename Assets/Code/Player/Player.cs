@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     [Header("Components")]
     private Rigidbody2D rb;
+    private GameManager gameManager;
 
     [Header("Player Attributes")]
     public float moveSpeed;
@@ -14,11 +15,8 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        gameManager = GameManager.Instance;
         rb = GetComponent<Rigidbody2D>();
-
-#if UNITY_ANDROID
-        Screen.orientation = ScreenOrientation.LandscapeLeft;
-#endif
     }
     void Start()
     {
@@ -28,14 +26,23 @@ public class Player : MonoBehaviour
     void Update()
     {
 #if UNITY_EDITOR || UNITY_STANDALONE
+
         MovePlayer();
+
 #endif
 
 #if UNITY_ANDROID
+
         TouchMovePlayer();
+
 #endif
 
-    }
+        if(!gameManager.isBallMoving && Input.anyKeyDown || Input.touchCount > 0) 
+        {
+            gameManager.StartGameAction?.Invoke();
+        }
+
+   }
 
 
     public void MovePlayer()

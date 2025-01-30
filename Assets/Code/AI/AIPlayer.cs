@@ -2,30 +2,28 @@ using UnityEngine;
 
 public class AIPaddle : MonoBehaviour
 {
-    public Transform ball;
-    public float speed = 5f;
-    public Rigidbody2D ballRb;  // Reference to ball's Rigidbody
-    public float followThreshold = 0.2f;
+    public Transform ball;        // Assign the ball in the Inspector
+    public Rigidbody2D ballRb;    // Reference to ball’s Rigidbody2D
+    public float speed = 5f;      // AI paddle speed
 
     void Update()
     {
         if (ball == null || ballRb == null) return;
 
-        // If ball is moving towards AI, predict where it will hit
-        float targetY = ball.position.y;
+        // AI paddle's right direction (facing left in a typical Pong game)
+        Vector2 aiDirection = Vector2.right; // Assuming AI is on the right side
 
-        if (ballRb.velocity.x > 0)  // Ball moving towards AI
+        // Dot product between AI direction and ball velocity
+        float dot = Vector2.Dot(aiDirection, ballRb.velocity);
+
+        //Debug.Log(dot);
+
+        // Move AI only if the ball is moving towards it
+        if (dot > 0)
         {
-            float timeToReachPaddle = Mathf.Abs((transform.position.x - ball.position.x) / ballRb.velocity.x);
-            targetY = ball.position.y + (ballRb.velocity.y * timeToReachPaddle);
-        }
+            float targetY = ball.position.y;
+            float newY = Mathf.Lerp(transform.position.y, targetY, speed * Time.deltaTime);
 
-
-        // Smooth movement towards the predicted position
-        float newY = Mathf.Lerp(transform.position.y, targetY, speed * Time.deltaTime);
-
-        if (Mathf.Abs(targetY - transform.position.y) > followThreshold)
-        {
             transform.position = new Vector3(transform.position.x, newY, transform.position.z);
         }
     }
