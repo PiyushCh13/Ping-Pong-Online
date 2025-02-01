@@ -15,6 +15,6 @@ public class WinLoseScreen : MonoBehaviour
 
     public void MainMenu() 
     {
-        SceneManager.LoadScene(MainMenuScreen , LoadSceneMode.Additive);
+        SceneManager.LoadScene(MainMenuScreen);
     }
 }

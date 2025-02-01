@@ -23,15 +23,18 @@ public class GameManager : Singleton<GameManager>
     [Header("Scenes")]
     public string WinorLoseScene;
 
+    [Header("Essentials")]
+    public int pointsToWin;
+
     private void Update()
     {
         GameWinorLose();
     }
     public void GameWinorLose() 
     {
-        if(Player1_Score >= 15 ||  Player2_Score >= 15) 
+        if(Player1_Score >= pointsToWin ||  Player2_Score >= pointsToWin) 
         {
-            SceneManager.LoadScene(WinorLoseScene, LoadSceneMode.Additive);
+            SceneManager.LoadScene(WinorLoseScene);
         }
     }
 

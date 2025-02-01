@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Multiplayer.unity
     guid: 80f73349ff624624eae66f56945ae2b7
   - enabled: 1
-    path: Assets/Scenes/WinLoseScreen.unity
-    guid: 821b19f298ce6214bab4ab0231aa4743
+    path: Assets/Scenes/WinLose.unity
+    guid: 4ff886549cd62c24ba6329a1d8a6116e
   m_configObjects: {}

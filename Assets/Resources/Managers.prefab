@@ -190,7 +190,8 @@ MonoBehaviour:
   isBallMoving: 0
   Player1_Score: 0
   Player2_Score: 0
-  WinorLoseScene: WinLoseScreen
+  WinorLoseScene: WinLose
+  pointsToWin: 1
 --- !u!1 &9068876063782263176
 GameObject:
   m_ObjectHideFlags: 0

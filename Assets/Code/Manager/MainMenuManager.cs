@@ -21,14 +21,14 @@ public class MainMenuManager : MonoBehaviour
     public void OpenSinglePlayer() 
     {
         SFXManager.Instance.PlaySound(SFXManager.Instance.collisionSound);
-        SceneManager.LoadScene(SinglePlayerScene, LoadSceneMode.Additive);
+        SceneManager.LoadScene(SinglePlayerScene);
 
     }
 
     public void OpenMultiPlayer()
     {
         SFXManager.Instance.PlaySound(SFXManager.Instance.collisionSound);
-        SceneManager.LoadScene(MultiplayerScene, LoadSceneMode.Additive);
+        SceneManager.LoadScene(MultiplayerScene);
     }
 
     public void Quit()
