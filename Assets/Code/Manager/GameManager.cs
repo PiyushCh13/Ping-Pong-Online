@@ -19,6 +19,7 @@ public class GameManager : Singleton<GameManager>
     [Header("Player")]
     public int Player1_Score;
     public int Player2_Score;
+    public bool isgameStarted;
 
     [Header("Scenes")]
     public string WinorLoseScene;
@@ -28,12 +29,16 @@ public class GameManager : Singleton<GameManager>
 
     private void Update()
     {
-        GameWinorLose();
+        if(isgameStarted) 
+        {
+            GameWinorLose();
+        }      
     }
     public void GameWinorLose() 
     {
         if(Player1_Score >= pointsToWin ||  Player2_Score >= pointsToWin) 
         {
+            isgameStarted = false;
             SceneManager.LoadScene(WinorLoseScene);
         }
     }

@@ -55,6 +55,7 @@ public class Player : PlayerBaseClass
     {
         if (!gameManager.isBallMoving && Input.anyKeyDown || Input.touchCount > 0)
         {
+            gameManager.isgameStarted = true;
             gameManager.StartGameAction?.Invoke();
         }
     }
