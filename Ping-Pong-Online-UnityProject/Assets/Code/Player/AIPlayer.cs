@@ -17,7 +17,7 @@ public class AIPaddle : PlayerBaseClass
 
     protected override void MovePlayer()
     {
-        if (ball.GetComponent<Rigidbody2D>().velocity.x > 1)
+        if (ball.GetComponent<Rigidbody2D>().linearVelocity.x > 1)
         {
             ai_Efficiency = Random.Range(0.1f, 0.6f);
         }

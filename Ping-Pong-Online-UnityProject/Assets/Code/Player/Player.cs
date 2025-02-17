@@ -31,7 +31,7 @@ public class Player : PlayerBaseClass
             vectical = Vector2.down;
 
         Vector2 movement = vectical * moveSpeed;
-        rb.velocity = movement;
+        rb.linearVelocity = movement;
 
 #endif
 

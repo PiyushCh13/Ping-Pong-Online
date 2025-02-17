@@ -42,3 +42,5 @@ Ping-Pong-Online-UnityProject/Assets/Scenes/_Tests/
 
 # Ignore Backend Files
 Ping-Pong-Online-Backend/*.env
+PingPong.psd
+PingPong.unitypackage

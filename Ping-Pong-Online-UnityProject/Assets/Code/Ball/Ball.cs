@@ -42,7 +42,7 @@ public class Ball : MonoBehaviour
     public void ResetPosition()
     {
         transform.position = Vector3.zero;
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
         currentballSpeed = oldBallSpeed;
         
     }
@@ -56,7 +56,7 @@ public class Ball : MonoBehaviour
         float yDir = 0f;
 
         Vector2 initialDirection = new Vector2(xDir, yDir).normalized;
-        rb.velocity = initialDirection * currentballSpeed;
+        rb.linearVelocity = initialDirection * currentballSpeed;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -73,18 +73,18 @@ public class Ball : MonoBehaviour
 
             float radians = hitPoint >= 0.5f ? bounceAngleMax * Mathf.Deg2Rad : bounceAngleMin * Mathf.Deg2Rad;
             
-            Vector2 newDirection = new Vector2(Mathf.Sign(rb.velocity.x), Mathf.Sin(radians)).normalized;
+            Vector2 newDirection = new Vector2(Mathf.Sign(rb.linearVelocity.x), Mathf.Sin(radians)).normalized;
 
             currentballSpeed += currentballSpeed * speedMultiplier;
 
-            rb.velocity = newDirection * currentballSpeed;
+            rb.linearVelocity = newDirection * currentballSpeed;
 
 
         }
 
         if (collision.gameObject.CompareTag("Bounds"))
         {
-            rb.velocity += rb.velocity.normalized * -rb.velocity.y * speedMultiplier * Time.deltaTime;
+            rb.linearVelocity += rb.linearVelocity.normalized * -rb.linearVelocity.y * speedMultiplier * Time.deltaTime;
         }
     }
 }
