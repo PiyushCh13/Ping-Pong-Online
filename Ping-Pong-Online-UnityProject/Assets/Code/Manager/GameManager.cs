@@ -27,6 +27,9 @@ public class GameManager : Singleton<GameManager>
     [Header("Essentials")]
     public int pointsToWin;
 
+    [Header("Multiplayer")]
+    public string connectionURL = "http://localhost:1337";
+
     private void Update()
     {
         if(isgameStarted) 
