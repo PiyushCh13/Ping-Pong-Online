@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainMenuManager : MonoBehaviour
 {
     public string SinglePlayerScene;
-    public string MultiplayerScene;
+    public string AuthenticationScene;
 
     void Awake()
     {
@@ -28,7 +28,7 @@ public class MainMenuManager : MonoBehaviour
     public void OpenMultiPlayer()
     {
         SFXManager.Instance.PlaySound(SFXManager.Instance.collisionSound);
-        SceneManager.LoadScene(MultiplayerScene);
+        SceneManager.LoadScene(AuthenticationScene);
     }
 
     public void Quit()
