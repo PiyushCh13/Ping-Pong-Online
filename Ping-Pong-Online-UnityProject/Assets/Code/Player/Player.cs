@@ -1,42 +1,40 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : PlayerBaseClass
 {
+    public bool hasStartedGame = false;
+
     protected override void Awake()
     {
         base.Awake();
     }
 
+    void Start()
+    {
+        hasStartedGame = false;
+    }
+
     protected override void Update()
     {
         base.Update();
-        StartGame();
+        HandleStartGame();
     }
-
 
     protected override void MovePlayer()
     {
-
-#if UNITY_EDITOR || UNITY_STANDALONE
-
-        Vector2 vectical = Vector2.zero;
+#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBGL
+        Vector2 vertical = Vector2.zero;
 
         if (Input.GetKey(KeyCode.W))
-            vectical = Vector2.up;
-
+            vertical = Vector2.up;
         if (Input.GetKey(KeyCode.S))
-            vectical = Vector2.down;
+            vertical = Vector2.down;
 
-        Vector2 movement = vectical * moveSpeed;
-        rb.linearVelocity = movement;
-
+        rb.linearVelocity = vertical * moveSpeed;
 #endif
 
 #if UNITY_ANDROID
-
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0); 
@@ -46,18 +44,30 @@ public class Player : PlayerBaseClass
 
             rb.MovePosition(Vector2.Lerp(transform.position, touchPosition, moveSpeed * Time.deltaTime));
         }
+#endif
+    }
 
+    private void HandleStartGame()
+    {
+#if UNITY_EDITOR || UNITY_STANDALONE
+        if (!hasStartedGame && Input.anyKeyDown)
+        {
+            StartGameOnce();
+        }
 #endif
 
-    }
-
-    public void StartGame()
-    {
-        if (!gameManager.isBallMoving && Input.anyKeyDown || Input.touchCount > 0)
+#if UNITY_ANDROID
+        if (!hasStartedGame && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            gameManager.isgameStarted = true;
-            gameManager.StartGameAction?.Invoke();
+            StartGameOnce();
         }
+#endif
     }
 
+    private void StartGameOnce()
+    {
+        hasStartedGame = true;
+        gameManager.isgameStarted = true;
+        gameManager.StartGameAction?.Invoke();
+    }
 }

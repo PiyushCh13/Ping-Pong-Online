@@ -239,7 +239,7 @@ MonoBehaviour:
   isgameStarted: 0
   WinorLoseScene: WinLose
   MultiplayerScene: Multiplayer
-  pointsToWin: 1
+  pointsToWin: 15
   connectionURL: http://localhost:1337
   JWT_Token: 
   alreadyRegistered: 1

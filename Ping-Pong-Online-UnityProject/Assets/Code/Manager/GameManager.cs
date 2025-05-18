@@ -45,7 +45,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        //SaveLoadSystem.InitialiseData();
+        SaveLoadSystem.InitialiseData();
         LoadGame();
     }
     private void Update()
